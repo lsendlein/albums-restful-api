@@ -1,0 +1,5612 @@
+{
+	"info": {
+		"_postman_id": "61e07e68-9ad7-4341-9b57-03495fd24096",
+		"name": "hw9",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23703475"
+	},
+	"item": [
+		{
+			"name": "Attempt request to /albums that is not allowed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"405 status code\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fall 2022\",   \r\n \"description\": \"Sendlein family's fall memories\",\r\n \"date_added\": \"11/18/2022\",\r\n \"public\": false\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an album with wrong content type",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"415 status code\", function () {\r",
+							"    pm.response.to.have.status(415);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/html",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<ul>\r\n <li>name: Fall 2022</li>   \r\n <li>description: Sendlein family's fall memories</li>\r\n <li>date_added: 11/18/2022</li>\r\n <li>public: false</li>\r\n</ul>"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an album with wrong accept header",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"406 status code\", function () {\r",
+							"    pm.response.to.have.status(406);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fall 2022\",   \r\n \"description\": \"Sendlein family's fall memories\",\r\n \"date_added\": \"11/18/2022\",\r\n \"public\": false\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an Album with invalid name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"F@ll 2022\",   \r\n \"description\": \"Sendlein family's fall memories\",\r\n \"date_added\": \"11/18/2022\",\r\n \"public\": false\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an Album with an invalid date_added",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fall 2022\",   \r\n \"description\": \"Sendlein family's fall memories\",\r\n \"date_added\": \"11/18/2022/20201\",\r\n \"public\": false\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an album that is missing an attribute",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fall 2022\",   \r\n \"description\": \"Sendlein family's fall memories\",\r\n \"date_added\": \"11/18/2022\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an album with invalid attribute",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fall 2022\",   \r\n \"description\": \"Sendlein family's fall memories\",\r\n \"date_added\": \"11/18/2022\",\r\n \"id\": 1234\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an album with invalid public attribute",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fall 2022\",   \r\n \"description\": \"Sendlein family's fall memories\",\r\n \"date_added\": \"11/18/2022\",\r\n \"public\": \"false\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an Album",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Set album id environment variable from response\r",
+							"pm.environment.set(\"album_id\", pm.response.json()[\"id\"]);\r",
+							"\r",
+							"pm.test(\"201 status code\", function () {\r",
+							"    //Check for 201 status code\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"content is valid\", function () {\r",
+							"   //Check if the response content is valid and matches the expected values\r",
+							"   pm.expect(pm.response.json()[\"name\"]).to.eq(\"Fall 2022\");\r",
+							"   pm.expect(pm.response.json()[\"description\"]).to.eq(\"Sendlein family's fall memories\");\r",
+							"   pm.expect(pm.response.json()[\"date_added\"]).to.eq(\"11/18/2022\");\r",
+							"   pm.expect(pm.response.json()[\"public\"]).to.eq(false);\r",
+							"   //Check if the self url is correct\r",
+							"   const self_url = pm.environment.get(\"app_url\") + \"/albums/\" + pm.response.json()[\"id\"];\r",
+							"   pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fall 2022\",   \r\n \"description\": \"Sendlein family's fall memories\",\r\n \"date_added\": \"11/18/2022\",\r\n \"public\": false\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an Album Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Set album id environment variable from response\r",
+							"pm.environment.set(\"album_id_2\", pm.response.json()[\"id\"]);\r",
+							"\r",
+							"pm.test(\"201 status code\", function () {\r",
+							"    //Check for 201 status code\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"content is valid\", function () {\r",
+							"   //Check if the response content is valid and matches the expected values\r",
+							"   pm.expect(pm.response.json()[\"name\"]).to.eq(\"Winter 2022\");\r",
+							"   pm.expect(pm.response.json()[\"description\"]).to.eq(\"Sendlein family's winter memories\");\r",
+							"   pm.expect(pm.response.json()[\"date_added\"]).to.eq(\"11/18/2022\");\r",
+							"   pm.expect(pm.response.json()[\"public\"]).to.eq(true);\r",
+							"   //Check if the self url is correct\r",
+							"   const self_url = pm.environment.get(\"app_url\") + \"/albums/\" + pm.response.json()[\"id\"];\r",
+							"   pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Winter 2022\",   \r\n \"description\": \"Sendlein family's winter memories\",\r\n \"date_added\": \"11/18/2022\",\r\n \"public\": true\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an Album Copy 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Set album id environment variable from response\r",
+							"pm.environment.set(\"album_id_3\", pm.response.json()[\"id\"]);\r",
+							"\r",
+							"pm.test(\"201 status code\", function () {\r",
+							"    //Check for 201 status code\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"content is valid\", function () {\r",
+							"   //Check if the response content is valid and matches the expected values\r",
+							"   pm.expect(pm.response.json()[\"name\"]).to.eq(\"Spring 2022\");\r",
+							"   pm.expect(pm.response.json()[\"description\"]).to.eq(\"Sendlein family's spring memories\");\r",
+							"   pm.expect(pm.response.json()[\"date_added\"]).to.eq(\"11/18/2022\");\r",
+							"   pm.expect(pm.response.json()[\"public\"]).to.eq(false);\r",
+							"   //Check if the self url is correct\r",
+							"   const self_url = pm.environment.get(\"app_url\") + \"/albums/\" + pm.response.json()[\"id\"];\r",
+							"   pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Spring 2022\",   \r\n \"description\": \"Sendlein family's spring memories\",\r\n \"date_added\": \"11/18/2022\",\r\n \"public\": false\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an Album Copy 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Set album id environment variable from response\r",
+							"pm.environment.set(\"album_id_4\", pm.response.json()[\"id\"]);\r",
+							"\r",
+							"pm.test(\"201 status code\", function () {\r",
+							"    //Check for 201 status code\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"content is valid\", function () {\r",
+							"   //Check if the response content is valid and matches the expected values\r",
+							"   pm.expect(pm.response.json()[\"name\"]).to.eq(\"Summer 2022\");\r",
+							"   pm.expect(pm.response.json()[\"description\"]).to.eq(\"Sendlein family's summer memories\");\r",
+							"   pm.expect(pm.response.json()[\"date_added\"]).to.eq(\"11/18/2022\");\r",
+							"   pm.expect(pm.response.json()[\"public\"]).to.eq(true);\r",
+							"   //Check if the self url is correct\r",
+							"   const self_url = pm.environment.get(\"app_url\") + \"/albums/\" + pm.response.json()[\"id\"];\r",
+							"   pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Summer 2022\",   \r\n \"description\": \"Sendlein family's summer memories\",\r\n \"date_added\": \"11/18/2022\",\r\n \"public\": true\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an Album Copy 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Set album id environment variable from response\r",
+							"pm.environment.set(\"album_id_5\", pm.response.json()[\"id\"]);\r",
+							"\r",
+							"pm.test(\"201 status code\", function () {\r",
+							"    //Check for 201 status code\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"content is valid\", function () {\r",
+							"   //Check if the response content is valid and matches the expected values\r",
+							"   pm.expect(pm.response.json()[\"name\"]).to.eq(\"Graduation\");\r",
+							"   pm.expect(pm.response.json()[\"description\"]).to.eq(\"Computer Science BS Graduation\");\r",
+							"   pm.expect(pm.response.json()[\"date_added\"]).to.eq(\"11/18/2022\");\r",
+							"   pm.expect(pm.response.json()[\"public\"]).to.eq(false);\r",
+							"   //Check if the self url is correct\r",
+							"   const self_url = pm.environment.get(\"app_url\") + \"/albums/\" + pm.response.json()[\"id\"];\r",
+							"   pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Graduation\",   \r\n \"description\": \"Computer Science BS Graduation\",\r\n \"date_added\": \"11/18/2022\",\r\n \"public\": false\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an Album Copy 5",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Set album id environment variable from response\r",
+							"pm.environment.set(\"album_id_6\", pm.response.json()[\"id\"]);\r",
+							"\r",
+							"pm.test(\"201 status code\", function () {\r",
+							"    //Check for 201 status code\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"content is valid\", function () {\r",
+							"   //Check if the response content is valid and matches the expected values\r",
+							"   pm.expect(pm.response.json()[\"name\"]).to.eq(\"My Birthday\");\r",
+							"   pm.expect(pm.response.json()[\"description\"]).to.eq(\"Happy birthday to me\");\r",
+							"   pm.expect(pm.response.json()[\"date_added\"]).to.eq(\"11/18/2022\");\r",
+							"   pm.expect(pm.response.json()[\"public\"]).to.eq(false);\r",
+							"   //Check if the self url is correct\r",
+							"   const self_url = pm.environment.get(\"app_url\") + \"/albums/\" + pm.response.json()[\"id\"];\r",
+							"   pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"My Birthday\",   \r\n \"description\": \"Happy birthday to me\",\r\n \"date_added\": \"11/18/2022\",\r\n \"public\": false\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an album with a name that is already in use",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"403 status code\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fall 2022\",   \r\n \"description\": \"Sendlein family's fall memories\",\r\n \"date_added\": \"11/18/2022\",\r\n \"public\": false\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an Album New User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Set album id environment variable from response\r",
+							"pm.environment.set(\"user_2_album_id\", pm.response.json()[\"id\"]);\r",
+							"\r",
+							"pm.test(\"201 status code\", function () {\r",
+							"    //Check for 201 status code\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"content is valid\", function () {\r",
+							"   //Check if the response content is valid and matches the expected values\r",
+							"   pm.expect(pm.response.json()[\"name\"]).to.eq(\"Fall 2022\");\r",
+							"   pm.expect(pm.response.json()[\"description\"]).to.eq(\"Smith family's fall memories\");\r",
+							"   pm.expect(pm.response.json()[\"date_added\"]).to.eq(\"11/18/2022\");\r",
+							"   pm.expect(pm.response.json()[\"public\"]).to.eq(false);\r",
+							"   //Check if the self url is correct\r",
+							"   const self_url = pm.environment.get(\"app_url\") + \"/albums/\" + pm.response.json()[\"id\"];\r",
+							"   pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fall 2022\",   \r\n \"description\": \"Smith family's fall memories\",\r\n \"date_added\": \"11/18/2022\",\r\n \"public\": false\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get an Album",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {\r",
+							"    //Check for 200 status code\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt to View a Private Album that's not yours",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"403 status code\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt to View a Public Album that's not yours Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {\r",
+							"    //Check for 200 status code\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id_2}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id_2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Allbums",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {\r",
+							"    //Check for 200 status code\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/albums",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Allbums User 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {\r",
+							"    //Check for 200 status code\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/albums",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put an album with wrong content type",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"415 status code\", function () {\r",
+							"    pm.response.to.have.status(415);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/html",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<ul>\r\n <li>name: Fall 2022</li>   \r\n <li>description: \"Our family went to a pumpkin patch\"</li>\r\n <li>date_added: 11/18/2022</li>\r\n <li>public: false</li>\r\n</ul>"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums/:album_id",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						":album_id"
+					],
+					"variable": [
+						{
+							"key": "album_id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put an album with wrong accept header",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"406 status code\", function () {\r",
+							"    pm.response.to.have.status(406);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fall 2022\",   \r\n \"description\": \"Our family went to a pumpkin patch\",\r\n \"date_added\": \"11/18/2022\",\r\n \"public\": false\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums/:album_id",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						":album_id"
+					],
+					"variable": [
+						{
+							"key": "album_id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put an Album with invalid name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"F@ll 2022\",   \r\n \"description\": \"Our family went to a pumpkin patch\",\r\n \"date_added\": \"11/18/2022\",\r\n \"public\": false\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put an Album with an invalid date_added",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fall 2022\",   \r\n \"description\": \"Our family went to a pumpkin patch\",\r\n \"date_added\": \"11/18/2022/20201\",\r\n \"public\": false\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put an album that is missing an attribute",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fall 2022\",   \r\n \"description\": \"Our family went to a pumpkin patch\",\r\n \"date_added\": \"11/18/2022\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put an album with invalid attribute",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fall 2022\",   \r\n \"description\": \"Our family went to a pumpkin patch\",\r\n \"date_added\": \"11/18/2022\",\r\n \"id\": 1234\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put an album with invalid public attribute",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fall 2022\",   \r\n \"description\": \"Our family went to a pumpkin patch\",\r\n \"date_added\": \"11/18/2022\",\r\n \"public\": \"false\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put an album with a name that is already in use",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"403 status code\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Winter 2022\",   \r\n \"description\": \"Our family went to a pumpkin patch\",\r\n \"date_added\": \"11/18/2022\",\r\n \"public\": false\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit an Album PUT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"303 status code\", function () {\r",
+							"    pm.response.to.have.status(303);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"content is valid\", function () {\r",
+							"   //Check if the response content is valid and matches the expected values\r",
+							"   pm.expect(pm.response.json()[\"name\"]).to.eq(\"Fall 2022\");\r",
+							"   pm.expect(pm.response.json()[\"description\"]).to.eq(\"Our family went to a pumpkin patch\");\r",
+							"   pm.expect(pm.response.json()[\"date_added\"]).to.eq(\"11/22/2022\");\r",
+							"   pm.expect(pm.response.json()[\"public\"]).to.eq(false);\r",
+							"   //Check if the self url is correct\r",
+							"   const self_url = pm.environment.get(\"app_url\") + \"/albums/\" + pm.response.json()[\"id\"];\r",
+							"   pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fall 2022\",   \r\n \"description\": \"Our family went to a pumpkin patch\",\r\n \"date_added\": \"11/22/2022\",\r\n \"public\": false\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt to Edit an Album that is not yours PUT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"403 status code\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fall 2022\",   \r\n \"description\": \"The Smith family went to a pumpkin patch\",\r\n \"date_added\": \"11/22/2022\",\r\n \"public\": false\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums/{{user_2_album_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{user_2_album_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch an album with wrong content type",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"415 status code\", function () {\r",
+							"    pm.response.to.have.status(415);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/html",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<ul>\r\n <li>name: Fall 2022</li>   \r\n <li>description: \"Our family went to a pumpkin patch\"</li>\r\n <li>date_added: 11/18/2022</li>\r\n <li>public: false</li>\r\n</ul>"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums/:album_id",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						":album_id"
+					],
+					"variable": [
+						{
+							"key": "album_id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch an album with wrong accept header",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"406 status code\", function () {\r",
+							"    pm.response.to.have.status(406);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fall 2022\",   \r\n \"description\": \"Our family went to a pumpkin patch\",\r\n \"date_added\": \"11/18/2022\",\r\n \"public\": false\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums/:album_id",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						":album_id"
+					],
+					"variable": [
+						{
+							"key": "album_id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch an Album with invalid name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"F@ll 2022\",   \r\n \"description\": \"Our family went to a pumpkin patch\",\r\n \"date_added\": \"11/18/2022\",\r\n \"public\": false\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch an Album with an invalid date_added",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fall 2022\",   \r\n \"description\": \"Our family went to a pumpkin patch\",\r\n \"date_added\": \"11/18/2022/20201\",\r\n \"public\": false\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch an album that is missing an attribute",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"content is valid\", function () {\r",
+							"   //Check if the response content is valid and matches the expected values\r",
+							"   pm.expect(pm.response.json()[\"name\"]).to.eq(\"Fall 2022\");\r",
+							"   pm.expect(pm.response.json()[\"description\"]).to.eq(\"Our family went to a pumpkin patch\");\r",
+							"   pm.expect(pm.response.json()[\"date_added\"]).to.eq(\"11/20/2022\");\r",
+							"   pm.expect(pm.response.json()[\"public\"]).to.eq(false);\r",
+							"   //Check if the self url is correct\r",
+							"   const self_url = pm.environment.get(\"app_url\") + \"/albums/\" + pm.response.json()[\"id\"];\r",
+							"   pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fall 2022\",   \r\n \"date_added\": \"11/20/2022\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch an album with invalid attribute",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fall 2022\",   \r\n \"description\": \"Our family went to a pumpkin patch\",\r\n \"date_added\": \"11/18/2022\",\r\n \"id\": 1234\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch an album with invalid public attribute",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fall 2022\",   \r\n \"description\": \"Our family went to a pumpkin patch\",\r\n \"date_added\": \"11/18/2022\",\r\n \"public\": \"false\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch an album with a name that is already in use",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"403 status code\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Winter 2022\",   \r\n \"description\": \"Our family went to a pumpkin patch\",\r\n \"date_added\": \"11/18/2022\",\r\n \"public\": false\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit an Album PATCH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"content is valid\", function () {\r",
+							"   //Check if the response content is valid and matches the expected values\r",
+							"   pm.expect(pm.response.json()[\"name\"]).to.eq(\"The Pumpkin Patch Trip\");\r",
+							"   pm.expect(pm.response.json()[\"description\"]).to.eq(\"Our family went to a pumpkin patch\");\r",
+							"   pm.expect(pm.response.json()[\"date_added\"]).to.eq(\"11/20/2022\");\r",
+							"   pm.expect(pm.response.json()[\"public\"]).to.eq(false);\r",
+							"   //Check if the self url is correct\r",
+							"   const self_url = pm.environment.get(\"app_url\") + \"/albums/\" + pm.response.json()[\"id\"];\r",
+							"   pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Charset",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"The Pumpkin Patch Trip\"   \r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt to Edit an Album that is not yours PATCH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"403 status code\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Charset",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"The Pumpkin Patch Trip\"   \r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/albums/{{user_2_album_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{user_2_album_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a photo with wrong content type",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"415 status code\", function () {\r",
+							"    pm.response.to.have.status(415);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/html",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<ul>\r\n <li>name: Fred and George</li>   \r\n <li>description: From Disney World Vacation</li>\r\n <li>date_added: 11/18/2022</li>\r\n</ul>"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a photo with wrong accept header",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"406 status code\", function () {\r",
+							"    pm.response.to.have.status(406);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Fred and George\",\r\n    \"description\": \"From Disney World Vacation\",\r\n    \"date_added\": \"11/18/2022\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a photo with invalid name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"F@ll 2022\",   \r\n \"description\": \"Sendlein family's fall memories\",\r\n \"date_added\": \"11/18/2022\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a photo with an invalid date_added",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fall 2022\",   \r\n \"description\": \"Sendlein family's fall memories\",\r\n \"date_added\": \"11/18/2022/20201\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a photo that is missing an attribute",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fall 2022\",   \r\n \"description\": \"Sendlein family's fall memories\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a photo with invalid attribute",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fall 2022\",   \r\n \"description\": \"Sendlein family's fall memories\",\r\n \"id\": 1234\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a Photo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Set photo id environment variable from response\r",
+							"pm.environment.set(\"photo_id\", pm.response.json()[\"id\"]);\r",
+							"\r",
+							"pm.test(\"201 status code\", function () {\r",
+							"    //Check for 201 status code\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"content is valid\", function () {\r",
+							"   //Check if the response content is valid and matches the expected values\r",
+							"   pm.expect(pm.response.json()[\"name\"]).to.eq(\"Fred and George\");\r",
+							"   pm.expect(pm.response.json()[\"description\"]).to.eq(\"From Disney World Vacation\");\r",
+							"   pm.expect(pm.response.json()[\"date_added\"]).to.eq(\"11/18/2022\");\r",
+							"   //Check if the self url is correct\r",
+							"   const self_url = pm.environment.get(\"app_url\") + \"/photos/\" + pm.response.json()[\"id\"];\r",
+							"   pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Fred and George\",\r\n    \"description\": \"From Disney World Vacation\",\r\n    \"date_added\": \"11/18/2022\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a Photo Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Set photo id environment variable from response\r",
+							"pm.environment.set(\"photo_id_2\", pm.response.json()[\"id\"]);\r",
+							"\r",
+							"pm.test(\"201 status code\", function () {\r",
+							"    //Check for 201 status code\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"content is valid\", function () {\r",
+							"   //Check if the response content is valid and matches the expected values\r",
+							"   pm.expect(pm.response.json()[\"name\"]).to.eq(\"Sunset Drive\");\r",
+							"   pm.expect(pm.response.json()[\"description\"]).to.eq(\"On Beach Blvd\");\r",
+							"   pm.expect(pm.response.json()[\"date_added\"]).to.eq(\"11/18/2022\");\r",
+							"   //Check if the self url is correct\r",
+							"   const self_url = pm.environment.get(\"app_url\") + \"/photos/\" + pm.response.json()[\"id\"];\r",
+							"   pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Sunset Drive\",\r\n    \"description\": \"On Beach Blvd\",\r\n    \"date_added\": \"11/18/2022\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a Photo Copy 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Set photo id environment variable from response\r",
+							"pm.environment.set(\"photo_id_3\", pm.response.json()[\"id\"]);\r",
+							"\r",
+							"pm.test(\"201 status code\", function () {\r",
+							"    //Check for 201 status code\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"content is valid\", function () {\r",
+							"   //Check if the response content is valid and matches the expected values\r",
+							"   pm.expect(pm.response.json()[\"name\"]).to.eq(\"Burger and Fries\");\r",
+							"   pm.expect(pm.response.json()[\"description\"]).to.eq(\"Lunch at Johnny Rockets!\");\r",
+							"   pm.expect(pm.response.json()[\"date_added\"]).to.eq(\"11/18/2022\");\r",
+							"   //Check if the self url is correct\r",
+							"   const self_url = pm.environment.get(\"app_url\") + \"/photos/\" + pm.response.json()[\"id\"];\r",
+							"   pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Burger and Fries\",\r\n    \"description\": \"Lunch at Johnny Rockets!\",\r\n    \"date_added\": \"11/18/2022\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a Photo Copy 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Set photo id environment variable from response\r",
+							"pm.environment.set(\"photo_id_4\", pm.response.json()[\"id\"]);\r",
+							"\r",
+							"pm.test(\"201 status code\", function () {\r",
+							"    //Check for 201 status code\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"content is valid\", function () {\r",
+							"   //Check if the response content is valid and matches the expected values\r",
+							"   pm.expect(pm.response.json()[\"name\"]).to.eq(\"Mt. Washington\");\r",
+							"   pm.expect(pm.response.json()[\"description\"]).to.eq(\"NH Trip 2022\");\r",
+							"   pm.expect(pm.response.json()[\"date_added\"]).to.eq(\"11/18/2022\");\r",
+							"   //Check if the self url is correct\r",
+							"   const self_url = pm.environment.get(\"app_url\") + \"/photos/\" + pm.response.json()[\"id\"];\r",
+							"   pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Mt. Washington\",\r\n    \"description\": \"NH Trip 2022\",\r\n    \"date_added\": \"11/18/2022\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a Photo Copy 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Set photo id environment variable from response\r",
+							"pm.environment.set(\"photo_id_5\", pm.response.json()[\"id\"]);\r",
+							"\r",
+							"pm.test(\"201 status code\", function () {\r",
+							"    //Check for 201 status code\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"content is valid\", function () {\r",
+							"   //Check if the response content is valid and matches the expected values\r",
+							"   pm.expect(pm.response.json()[\"name\"]).to.eq(\"Gaming Friends\");\r",
+							"   pm.expect(pm.response.json()[\"description\"]).to.eq(\"At PAX East 2022\");\r",
+							"   pm.expect(pm.response.json()[\"date_added\"]).to.eq(\"11/18/2022\");\r",
+							"   //Check if the self url is correct\r",
+							"   const self_url = pm.environment.get(\"app_url\") + \"/photos/\" + pm.response.json()[\"id\"];\r",
+							"   pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Gaming Friends\",\r\n    \"description\": \"At PAX East 2022\",\r\n    \"date_added\": \"11/18/2022\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a Photo Copy 5",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Set photo id environment variable from response\r",
+							"pm.environment.set(\"photo_id_6\", pm.response.json()[\"id\"]);\r",
+							"\r",
+							"pm.test(\"201 status code\", function () {\r",
+							"    //Check for 201 status code\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"content is valid\", function () {\r",
+							"   //Check if the response content is valid and matches the expected values\r",
+							"   pm.expect(pm.response.json()[\"name\"]).to.eq(\"Beach Bums\");\r",
+							"   pm.expect(pm.response.json()[\"description\"]).to.eq(\"In the Keys\");\r",
+							"   pm.expect(pm.response.json()[\"date_added\"]).to.eq(\"11/18/2022\");\r",
+							"   //Check if the self url is correct\r",
+							"   const self_url = pm.environment.get(\"app_url\") + \"/photos/\" + pm.response.json()[\"id\"];\r",
+							"   pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Beach Bums\",\r\n    \"description\": \"In the Keys\",\r\n    \"date_added\": \"11/18/2022\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a photo with a name that is already taken",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"403 status code\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Mt. Washington\",\r\n    \"description\": \"From Disney World Vacation\",\r\n    \"date_added\": \"11/18/2022\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a Photo New User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Set photo id environment variable from response\r",
+							"pm.environment.set(\"user_2_photo_id\", pm.response.json()[\"id\"]);\r",
+							"\r",
+							"pm.test(\"201 status code\", function () {\r",
+							"    //Check for 201 status code\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"content is valid\", function () {\r",
+							"   //Check if the response content is valid and matches the expected values\r",
+							"   pm.expect(pm.response.json()[\"name\"]).to.eq(\"Mt. Washington\");\r",
+							"   pm.expect(pm.response.json()[\"description\"]).to.eq(\"The Smith family loves hiking!\");\r",
+							"   pm.expect(pm.response.json()[\"date_added\"]).to.eq(\"11/18/2022\");\r",
+							"   //Check if the self url is correct\r",
+							"   const self_url = pm.environment.get(\"app_url\") + \"/photos/\" + pm.response.json()[\"id\"];\r",
+							"   pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Mt. Washington\",\r\n    \"description\": \"The Smith family loves hiking!\",\r\n    \"date_added\": \"11/18/2022\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt to view a photo that's not yours",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"403 status code\", function () {\r",
+							"    //Check for 403 status code\r",
+							"    pm.response.to.have.status(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/photos/{{user_2_photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{user_2_photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a Photo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {\r",
+							"    //Check for 200 status code\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/photos/{{photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Photos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {\r",
+							"    //Check for 200 status code\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/photos",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Photos User 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {\r",
+							"    //Check for 200 status code\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/photos",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put a photo with wrong content type",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"415 status code\", function () {\r",
+							"    pm.response.to.have.status(415);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/html",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<ul>\r\n <li>name: Fred and George</li>   \r\n <li>description: From Harry Potter World</li>\r\n <li>date_added: 11/18/2022</li>\r\n</ul>"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos/{{photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put a photo with wrong accept header",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"406 status code\", function () {\r",
+							"    pm.response.to.have.status(406);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fred and George\",   \r\n \"description\": \"From Harry Potter World\",\r\n \"date_added\": \"11/18/2022\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos/{{photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put a photo with invalid name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fred @nd George\",   \r\n \"description\": \"From Harry Potter World\",\r\n \"date_added\": \"11/18/2022\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos/{{photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put a photo with an invalid date_added",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fred and George\",   \r\n \"description\": \"From Harry Potter World\",\r\n \"date_added\": \"11/18/2022/2021\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos/{{photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put a photo that is missing an attribute",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fred and George\",   \r\n \"description\": \"From Harry Potter World\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos/{{photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put a photo with invalid attribute",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fred and George\",   \r\n \"description\": \"From Harry Potter World\",\r\n \"id\": 1234\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos/{{photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put a photo with a name that is already in use",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"403 status code\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Burger and Fries\",   \r\n \"description\": \"From Harry Potter World\",\r\n \"date_added\": \"11/18/2022\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos/{{photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put a photo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"303 status code\", function () {\r",
+							"    pm.response.to.have.status(303);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"content is valid\", function () {\r",
+							"   //Check if the response content is valid and matches the expected values\r",
+							"   pm.expect(pm.response.json()[\"name\"]).to.eq(\"Fred and George\");\r",
+							"   pm.expect(pm.response.json()[\"description\"]).to.eq(\"From Harry Potter World\");\r",
+							"   pm.expect(pm.response.json()[\"date_added\"]).to.eq(\"11/18/2022\");\r",
+							"   //Check if the self url is correct\r",
+							"   const self_url = pm.environment.get(\"app_url\") + \"/photos/\" + pm.response.json()[\"id\"];\r",
+							"   pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fred and George\",   \r\n \"description\": \"From Harry Potter World\",\r\n \"date_added\": \"11/18/2022\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos/{{photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt to Edit a Photo that's not yours PUT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"403 status code\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Fred and George\",   \r\n \"description\": \"From Harry Potter World\",\r\n \"date_added\": \"11/18/2022\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos/{{user_2_photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{user_2_photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch a photo with wrong content type",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"415 status code\", function () {\r",
+							"    pm.response.to.have.status(415);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/html",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<ul>\r\n <li>name: Hermione and Ginny</li>   \r\n</ul>"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos/{{photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch a photo with wrong accept header",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"406 status code\", function () {\r",
+							"    pm.response.to.have.status(406);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Hermione and Ginny\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos/{{photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch a photo with invalid name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Hermione @nd Ginny\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos/{{photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch a photo with an invalid date_added",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"date_added\": \"11/18/2022/2021\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos/{{photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch a photo that is missing an attribute",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"content is valid\", function () {\r",
+							"   //Check if the response content is valid and matches the expected values\r",
+							"   pm.expect(pm.response.json()[\"name\"]).to.eq(\"Hermione and Ginny\");\r",
+							"   pm.expect(pm.response.json()[\"description\"]).to.eq(\"From Harry Potter World\");\r",
+							"   pm.expect(pm.response.json()[\"date_added\"]).to.eq(\"11/18/2022\");\r",
+							"   //Check if the self url is correct\r",
+							"   const self_url = pm.environment.get(\"app_url\") + \"/photos/\" + pm.response.json()[\"id\"];\r",
+							"   pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Hermione and Ginny\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos/{{photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch a photo with invalid attribute",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"400 status code\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"id\": 1234\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos/{{photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch an album with a name that is already in use Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"403 status code\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Mt. Washington\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos/{{photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch a photo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"content is valid\", function () {\r",
+							"   //Check if the response content is valid and matches the expected values\r",
+							"   pm.expect(pm.response.json()[\"name\"]).to.eq(\"Hermione and Ginny\");\r",
+							"   pm.expect(pm.response.json()[\"description\"]).to.eq(\"From Harry Potter World\");\r",
+							"   pm.expect(pm.response.json()[\"date_added\"]).to.eq(\"11/18/2022\");\r",
+							"   //Check if the self url is correct\r",
+							"   const self_url = pm.environment.get(\"app_url\") + \"/photos/\" + pm.response.json()[\"id\"];\r",
+							"   pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Charset",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Hermione and Ginny\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos/{{photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt to Edit a Photo that is not yours PATCH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"403 status code\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"Hermione and Ginny\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/photos/{{user_2_photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{user_2_photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assign a Photo that's not yours to an Album that is yours",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"403 status code\", function () {\r",
+							"    //Check for status code 403\r",
+							"    pm.response.to.have.status(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id}}/photos/{{user_2_photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id}}",
+						"photos",
+						"{{user_2_photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assign a Photo that's yours to an Album that's not yours",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"403 status code\", function () {\r",
+							"    //Check for status code 403\r",
+							"    pm.response.to.have.status(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/albums/{{user_2_album_id}}/photos/{{photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{user_2_album_id}}",
+						"photos",
+						"{{photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assign a Photo that's not yours to an Album that's not yours Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"403 status code\", function () {\r",
+							"    //Check for status code 403\r",
+							"    pm.response.to.have.status(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/albums/{{user_2_album_id}}/photos/{{user_2_photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{user_2_album_id}}",
+						"photos",
+						"{{user_2_photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assign a Photo to an Album",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"204 status code\", function () {\r",
+							"    //Check for status code 204\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id}}/photos/{{photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id}}",
+						"photos",
+						"{{photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get an Album After Photo has been added",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {\r",
+							"    //Check for 200 status code\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"content is valid\", function () {\r",
+							"   //Check if the response content is valid and matches the expected values\r",
+							"   pm.expect(pm.response.json()[\"name\"]).to.eq(\"The Pumpkin Patch Trip\");\r",
+							"   pm.expect(pm.response.json()[\"description\"]).to.eq(\"Our family went to a pumpkin patch\");\r",
+							"   pm.expect(pm.response.json()[\"date_added\"]).to.eq(\"11/20/2022\");\r",
+							"   pm.expect(pm.response.json()[\"public\"]).to.eq(false);\r",
+							"   pm.expect(pm.response.json()[\"photos\"].length).to.eq(1);\r",
+							"   //Check if the self url is correct\r",
+							"   const self_url = pm.environment.get(\"app_url\") + \"/albums/\" + pm.response.json()[\"id\"];\r",
+							"   pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a Photo after it has been added to Album",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {\r",
+							"    //Check for 200 status code\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"content is valid\", function () {\r",
+							"   //Check if the response content is valid and matches the expected values\r",
+							"   pm.expect(pm.response.json()[\"name\"]).to.eq(\"Hermione and Ginny\");\r",
+							"   pm.expect(pm.response.json()[\"description\"]).to.eq(\"From Harry Potter World\");\r",
+							"   pm.expect(pm.response.json()[\"date_added\"]).to.eq(\"11/18/2022\");\r",
+							"   pm.expect(pm.response.json()[\"album\"]).to.not.eq(null);\r",
+							"   //Check if the self url is correct\r",
+							"   const self_url = pm.environment.get(\"app_url\") + \"/photos/\" + pm.response.json()[\"id\"];\r",
+							"   pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/photos/{{photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove a Photo that's not yours From an Album that is yours",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"403 status code\", function () {\r",
+							"    //Check for status code 403\r",
+							"    pm.response.to.have.status(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id}}/photos/{{user_2_photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id}}",
+						"photos",
+						"{{user_2_photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove a Photo that's yours From an Album that is not yours",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"403 status code\", function () {\r",
+							"    //Check for status code 403\r",
+							"    pm.response.to.have.status(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/albums/{{user_2_album_id}}/photos/{{photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{user_2_album_id}}",
+						"photos",
+						"{{photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove a Photo that's not yours From an Album that is not yours",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"403 status code\", function () {\r",
+							"    //Check for status code 403\r",
+							"    pm.response.to.have.status(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/albums/{{user_2_album_id}}/photos/{{user_2_photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{user_2_album_id}}",
+						"photos",
+						"{{user_2_photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove a Photo From an Album",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"204 status code\", function () {\r",
+							"    //Check for apprropriate status code 204\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id}}/photos/{{photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id}}",
+						"photos",
+						"{{photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get an Album After Photo has been removed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {\r",
+							"    //Check for 200 status code\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"200 status code\", function () {\r",
+							"    //Check for 200 status code\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"content is valid\", function () {\r",
+							"   //Check if the response content is valid and matches the expected values\r",
+							"   pm.expect(pm.response.json()[\"name\"]).to.eq(\"The Pumpkin Patch Trip\");\r",
+							"   pm.expect(pm.response.json()[\"description\"]).to.eq(\"Our family went to a pumpkin patch\");\r",
+							"   pm.expect(pm.response.json()[\"date_added\"]).to.eq(\"11/20/2022\");\r",
+							"   pm.expect(pm.response.json()[\"public\"]).to.eq(false);\r",
+							"   pm.expect(pm.response.json()[\"photos\"].length).to.eq(0);\r",
+							"   //Check if the self url is correct\r",
+							"   const self_url = pm.environment.get(\"app_url\") + \"/albums/\" + pm.response.json()[\"id\"];\r",
+							"   pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a Photo after it has been removed from an Album",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {\r",
+							"    //Check for 200 status code\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"content is valid\", function () {\r",
+							"   //Check if the response content is valid and matches the expected values\r",
+							"   pm.expect(pm.response.json()[\"name\"]).to.eq(\"Hermione and Ginny\");\r",
+							"   pm.expect(pm.response.json()[\"description\"]).to.eq(\"From Harry Potter World\");\r",
+							"   pm.expect(pm.response.json()[\"date_added\"]).to.eq(\"11/18/2022\");\r",
+							"   pm.expect(pm.response.json()[\"album\"]).to.eq(null);\r",
+							"   //Check if the self url is correct\r",
+							"   const self_url = pm.environment.get(\"app_url\") + \"/photos/\" + pm.response.json()[\"id\"];\r",
+							"   pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/photos/{{photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt to Delete an Album that's not yours",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"403 no content\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/albums/{{user_2_album_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{user_2_album_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an Album",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"204 no content\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an Album Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"204 no content\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id_2}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id_2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an Album Copy 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"204 no content\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id_3}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id_3}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an Album Copy 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"204 no content\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id_4}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id_4}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an Album Copy 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"204 no content\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id_5}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id_5}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an Album Copy 5",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"204 no content\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/albums/{{album_id_6}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{album_id_6}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an Album User 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"204 no content\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/albums/{{user_2_album_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"albums",
+						"{{user_2_album_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt to Delete a Photo that is not yours",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"403 no content\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/photos/{{user_2_photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{user_2_photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a Photo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"204 no content\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/photos/{{photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a Photo Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"204 no content\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/photos/{{photo_id_2}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{photo_id_2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a Photo Copy 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"204 no content\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/photos/{{photo_id_3}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{photo_id_3}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a Photo Copy 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"204 no content\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/photos/{{photo_id_4}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{photo_id_4}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a Photo Copy 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"204 no content\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/photos/{{photo_id_5}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{photo_id_5}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a Photo Copy 5",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"204 no content\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/photos/{{photo_id_6}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{photo_id_6}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a Photo User 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"204 no content\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/photos/{{user_2_photo_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"photos",
+						"{{user_2_photo_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 status code\", function () {\r",
+							"    //Check for 200 status code\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/users",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
